@@ -1,0 +1,7 @@
+serve/*
+node_modules/*
+dist/*
+src/assets/*
+src/plugins/*
+public/*
+src/main.js
