@@ -1,12 +1,13 @@
 <!--
  * @Author: lzd
  * @Date: 2020-09-07 14:15:07
- * @LastEditors: lzd
- * @LastEditTime: 2021-01-13 10:33:19
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-04-26 14:21:19
  * @Description: content description
 -->
 <template>
   <div id="app" class="skin-original">
+    <Header></Header>
     <transition name="el-fade-in-linear">
       <keep-alive>
         <router-view class="view"></router-view>
@@ -16,10 +17,11 @@
 </template>
 
 <script>
+import Header from "./views/Header";
 export default {
   name: "app",
   components: {
-
+    Header
   },
   computed: {
 

@@ -2,7 +2,7 @@
  * @Author: lzd
  * @Date: 2021-01-06 16:27:09
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-04-12 16:02:08
+ * @LastEditTime: 2021-04-26 15:05:49
  * @Description: content description
 -->
 <template>
@@ -316,13 +316,14 @@ export default {
     drawUAV(item) {
       let UAVIcon = L.icon({
         iconUrl: item.isWhite ? this.UAVImg_b : this.UAVImg_h,
-        iconSize: [14, 14],
-        iconAnchor: [7, 7],
-        popupAnchor: [5, -20],
+        iconSize: [40, 40],
+        iconAnchor: [20, 20],
+        popupAnchor: [20, -30],
+        className: 'uav-dom'
         // shadowSize: [25, 25],
         // shadowAnchor: [25, 25],
       });
-      let UAVDom = L.marker([item.latitude, item.longitude], {
+      let UAVDom = L.marker([this.devLat+0.004, this.devLng+0.004], {  //item.latitude||this.devLat, item.longitude||this.devLng
         icon: UAVIcon,
         alt: item.id,
         title: item.id,
@@ -359,20 +360,20 @@ export default {
         this.$refs.audio.muted = true;
       }
 
-      // let UAVLayersArr = this.UAVLayers.getLayers();
+      let UAVLayersArr = this.UAVLayers.getLayers();
       // let semiCircleLayersArr = this.semiCircleLayers.getLayers();
 
-      // UAVLayersArr.forEach((item) => {
-      //   let sign = item.options.sign;
-      //   let find = this.uavList.find((zitem) => {
-      //     return zitem.id == sign;
-      //   });
-      //   if (find) {
-      //     item.setLatLng({ lat: find.latitude, lng: find.longitude });
-      //   } else {
-      //     this.UAVLayers.removeLayer(item);
-      //   }
-      // }); //去掉消失无人机，并更新移动无人机位置
+      UAVLayersArr.forEach((item) => {
+        let sign = item.options.sign;
+        let find = this.uavList.find((zitem) => {
+          return zitem.id == sign;
+        });
+        if (find) {
+          item.setLatLng({ lat: find.latitude, lng: find.longitude });
+        } else {
+          this.UAVLayers.removeLayer(item);
+        }
+      }); //去掉消失无人机，并更新移动无人机位置
       // semiCircleLayersArr.forEach((item) => {
       //   let sign = item.options.sign;
       //   let find = this.uavList.find((zitem) => {
@@ -385,16 +386,16 @@ export default {
       //   }
       // }); //去掉消失的警告方向，并更新警告方向
       // // debugger
-      // this.uavList.forEach((item) => {
-      //   let find = semiCircleLayersArr.find((zitem) => {
-      //     return zitem.options.sign == item.id;
-      //   });
-      //   if (!find) {
-      //     this.drawUAV(item);
-      //     !item.isWhite && this.drowSemiCircle(item);
-      //     // !item.isWhite && this.voicePolice();
-      //   }
-      // }); //画出新增的警告方向和无人机方位
+      this.uavList.forEach((item) => {
+        let find = UAVLayersArr.find((zitem) => {
+          return zitem.options.sign == item.id;
+        });
+        if (!find) {
+          this.drawUAV(item);
+          // !item.isWhite && this.drowSemiCircle(item);
+          // !item.isWhite && this.voicePolice();
+        }
+      }); //画出新增的警告方向和无人机方位
     },
     voicePolice() {
       //下面为声音报警
@@ -483,7 +484,10 @@ export default {
 .play-class {
   color: var(--box-shandow);
 }
-/deep/ .leaflet-marker-icon{
-    filter: invert(0.95);
+/deep/ .leaflet-marker-icon {
+  filter: invert(0.95);
+}
+/deep/ .uav-dom{
+  filter: invert(0);
 }
 </style>

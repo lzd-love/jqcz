@@ -2,7 +2,7 @@
  * @Author: lzd
  * @Date: 2021-01-05 16:26:26
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-04-12 16:09:52
+ * @LastEditTime: 2021-04-26 14:26:07
  * @Description: content description
 -->
 <template>
@@ -195,7 +195,7 @@ export default {
   // background: var(card-background);
   position: fixed;
   left: 0;
-  top: 0;
+  top: 50px;
   right: 0;
   bottom: 0;
   display: flex;
